@@ -1,0 +1,39 @@
+This is a mirror of http://www.vim.org/scripts/script.php?script_id=2467
+
+*submode* is a Vim plugin to provide the way to define "submodes" to the
+built-in |vim-modes|.  For example, whenever you type |g-| and/or |g+| to
+undo/redo many times, don't you want to type "g++--++..." instead
+"g+g+g-g-g+g+..."?  With this plugin, you can define such interface with the
+following settings:
+
+	call submode#enter_with('undo/redo', 'n', '', 'g-', 'g-')
+	call submode#enter_with('undo/redo', 'n', '', 'g+', 'g+')
+	call submode#leave_with('undo/redo', 'n', '', '<Esc>')
+	call submode#map('undo/redo', 'n', '', '-', 'g-')
+	call submode#map('undo/redo', 'n', '', '+', 'g+')
+
+The above settings mean:
+- Define a new submode named "undo/redo".
+- Define "g-" and "g+" as key sequences to enter the submode "undo/redo" from
+  Normal mode.  Aditionally, they does undo/redo before entering the submode
+  "undo/redo".
+- In the submode "undo/redo", "-" and "+" do undo/redo.
+- In the submode "undo/redo", "<Esc>" leaves the submode.
+
+						*submode-leaving*
+By default, <Esc> is automatically defined as a key to leave any submode.
+So you don't have to explicitly define like the above example.
+There are also 2 ways to leave submodes:
+- Type any key sequence which is not mapped in the submode.
+- Don't type any key for a long time.  See |submode-variables| to configure
+  the details of this time out.
+
+
+Requirements:
+- Vim 7.2 or later
+
+Latest version:
+http://github.com/kana/vim-submode
+
+Document in HTML format:
+http://kana.github.com/config/vim/submode.html
